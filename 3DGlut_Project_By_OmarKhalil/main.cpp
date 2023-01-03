@@ -2,109 +2,37 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#include <stdlib.h>
-#include <windows.h>
-#include <math.h>
-
-float xRotated = 90.0, yRotated = 0.0, zRotated = 0.0;
-
-//------------------------------  reshapeFunc  ---------------------------------
-
-void reshapeFunc (int w, int h)
+float angle=1.0; //Speed Of Rotation
+void display()
 {
-    glViewport(0,0,(GLsizei)w,(GLsizei)h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective (40.0, (GLdouble)w / (GLdouble)h, 0.5, 20.0);
+    glClearColor(1,1,1,0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3f(0,0.5,1);
+    glLineWidth(1.5);
     glMatrixMode(GL_MODELVIEW);
-}
 
-//------------------------------  display   -------------------------------
+    glRotatef(angle,0,1,0); //Rotate Around Y-axis
+    glutWireCube(30);
 
-void display (void)
-{
+    glRotatef(angle,0,1,0); //Rotate Around Y-axis
+    glColor3f(1,0,1);
+    glutWireTeapot(20);
 
-    glClear        (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity ();
-    glTranslatef    (0.0, 0.0, -15.0);
-
-	//Your code is written here
-    glColor3f(1, 0, 0);
-
-
-
-    glPushMatrix ();
-       glutSolidCube(1.0);
-    glPopMatrix ();
-
+    glFlush();
     glutSwapBuffers();
 }
-
-//--------------------------------  idleFunc  ----------------------------------
-
-void idleFunc (void)
+int main()
 {
-    zRotated += 1;
-    glutPostRedisplay();
-}
+    glutInitWindowPosition(0, 0);
+    glutInitWindowSize(800, 800);
+    glutInitDisplayMode(GLUT_RGB | GL_DOUBLE);
+    glutCreateWindow("Omar H. Khalil || 20101110");
 
-void texture (void){
+    glutDisplayFunc(display);
+    glutIdleFunc(display); //the same function of glutPostRedisplay();
+    glOrtho(-44.0,44,-44.0,44,-44.0,44); //not gluOrtho
 
-const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
-
-const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
-const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
-const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat high_shininess[] = { 100.0f };
-
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-
-}
-
-//----------------------------------  main  ------------------------------------
-
-
-int main (int argc, char **argv)
-{
-    glutInit               (&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); // buffer mode
-    glutInitWindowSize     (700, 700);
-    glutInitWindowPosition (0, 0);
-    glutCreateWindow       ("Omar Khalil || 20101110");
-    glOrtho(-100, 100, -100, 100, -100, 100);
-    glEnable(GL_DEPTH_TEST);
-    glClearColor (1.0, 1.0, 1.0, 0.0);
-
-    glutDisplayFunc (display);
-    glutReshapeFunc (reshapeFunc);
-    glutIdleFunc    (idleFunc);
-
-    glClearColor(1,1,1,1);
-    texture(); // Lighting and textures
-
-
+    glRotatef(1,1,0,0);
     glutMainLoop();
 }
