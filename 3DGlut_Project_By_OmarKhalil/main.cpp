@@ -46,7 +46,7 @@ void display()
         glColor3f(1,0.9,0);
         glTranslatef(90, 80, -60);
         glRotatef(angle, 0, 1, 0);
-        glutSolidSphere(15, 8, 20);
+        glutSolidSphere(15, 30, 20);
     glPopMatrix();
 
     //The Land is Green
@@ -66,10 +66,18 @@ void display()
         glPopMatrix();
     }
 
+    //the soil is where it all starts
+    glPushMatrix();
+        glColor3f(0.2,0,0);
+        glTranslatef(0, -1, 0);
+        glRotatef(90, 1, 0, 0);
+        glutSolidCone(35, 20, 30,30);
+    glPopMatrix();
+
     //the teapot is cooler tho
     glPushMatrix();
         glColor3f(0.1,0.1,0.1);
-        glTranslatef(-50, 120, 0);
+        glTranslatef(-50, 130, 0);
         glRotatef(-80, 0, 0, 1);
         glutSolidTeapot(50);
     glPopMatrix();
