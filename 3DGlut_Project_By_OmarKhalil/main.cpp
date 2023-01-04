@@ -7,8 +7,8 @@ using namespace std;
 float angle=0.1, h = 0, f1 = 0, f2 = 0;
 bool runWater = false;
 
-void fly(float &ang){
-    ang++;
+void fly(){
+    f1++;
     glBegin(GL_QUADS);
         glVertex3f(0.5, 0, 0.5);
         glVertex3f(0.5, 0, -0.5);
@@ -149,25 +149,25 @@ void display()
     glPushMatrix();
         glColor3f(1,.9,0);
         glTranslatef(0, 40, 0);
-        glRotatef(f1, 0,0,1);
+        glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
-        fly(f1);
+        fly();
     glPopMatrix();
 
     glPushMatrix();
         glColor3f(1,.9,0);
         glTranslatef(-30, 20, 0);
-        glRotatef(f1, 1,1,1);
+        glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
-        fly(f1);
+        fly();
     glPopMatrix();
 
     glPushMatrix();
         glColor3f(1,.9,0);
         glTranslatef(20, 40, 0);
-        glRotatef(f1, 0,0,1);
+        glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
-        fly(f1);
+        fly();
     glPopMatrix();
 
     glFlush();
