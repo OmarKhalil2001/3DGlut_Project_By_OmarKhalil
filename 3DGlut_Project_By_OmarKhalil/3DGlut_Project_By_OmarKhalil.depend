@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1672798159 source:c:\users\omar h. khalil\desktop\3dglut_project_by_omarkhalil\3dglut_project_by_omarkhalil\main.cpp
+1672813661 source:c:\users\omar h. khalil\desktop\3dglut_project_by_omarkhalil\3dglut_project_by_omarkhalil\main.cpp
 	<GL/gl.h>
 	<GL/glu.h>
 	<GL/glut.h>
+	<windows.h>
+	<mmsystem.h>
 
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
 

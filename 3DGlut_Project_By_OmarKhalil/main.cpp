@@ -1,9 +1,40 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-
-float angle=0.1, h = 0;
+#include <windows.h>
+#include <mmsystem.h>
+using namespace std;
+float angle=0.1, h = 0, f1 = 0, f2 = 0;
 bool runWater = false;
+
+void fly(float &ang){
+    ang++;
+    glBegin(GL_QUADS);
+        glVertex3f(0.5, 0, 0.5);
+        glVertex3f(0.5, 0, -0.5);
+        glVertex3f(-0.5, 0, -0.5);
+        glVertex3f(-0.5, 0, 0.5);
+
+        glVertex3f(0.5,0,-0.5);
+        glVertex3f(0.5,1,-0.5);
+        glVertex3f(-0.5,1,-0.5);
+        glVertex3f(-0.5,0,-0.5);
+
+        glVertex3f(0.5,1,-0.5);
+        glVertex3f(-0.5,1,-0.5);
+        glVertex3f(-0.5,0,0.5);
+        glVertex3f(0.5,0,0.5);
+    glEnd();
+    glBegin(GL_TRIANGLES);
+        glVertex3f(0.5,0,0.5);
+        glVertex3f(0.5,1,-0.5);
+        glVertex3f(0.5,0,-0.5);
+
+        glVertex3f(-0.5,0,0.5);
+        glVertex3f(-0.5,1,-0.5);
+        glVertex3f(-0.5,0,-0.5);
+    glEnd();
+}
 void grass(float x, float y, float z,  float r, float g, float b, int width, float len, float len2, float len3){
     glLineWidth(width);
 
@@ -114,6 +145,31 @@ void display()
     }else{
         h = 0;
     }
+
+    glPushMatrix();
+        glColor3f(1,.9,0);
+        glTranslatef(0, 40, 0);
+        glRotatef(f1, 0,0,1);
+        glScalef(2, 2, 2);
+        fly(f1);
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(1,.9,0);
+        glTranslatef(-30, 20, 0);
+        glRotatef(f1, 1,1,1);
+        glScalef(2, 2, 2);
+        fly(f1);
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(1,.9,0);
+        glTranslatef(20, 40, 0);
+        glRotatef(f1, 0,0,1);
+        glScalef(2, 2, 2);
+        fly(f1);
+    glPopMatrix();
+
     glFlush();
     glutSwapBuffers();
 }
