@@ -2,7 +2,8 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-float angle=0.1; //Speed Of Rotation
+float angle=0.1, h = 0;
+bool runWater = false;
 void grass(float x, float y, float z,  float r, float g, float b, int width, float len, float len2, float len3){
     glLineWidth(width);
 
@@ -77,7 +78,7 @@ void display()
     //the teapot is cooler tho
     glPushMatrix();
         glColor3f(0.1,0.1,0.1);
-        glTranslatef(-50, 130, 0);
+        glTranslatef(-45, 145, 0);
         glRotatef(-80, 0, 0, 1);
         glutSolidTeapot(50);
     glPopMatrix();
@@ -89,6 +90,30 @@ void display()
         grass(10, -10, 0, 0.1, 0.6, 0, 17, 8, 10, 7.5);
         grass(20, -10, 0, 0.2, 0, 0, 12, 12, 18, 14);
         grass(-14, -10, 0, 0.3, 0.75, 0, 17, 8, 10, 7.5);
+    glPopMatrix();
+
+    //Watering the Plants
+    if(runWater){
+        glPushMatrix();
+            glColor3f(0,0,0.5);
+            glTranslatef(0,65,0);
+            GLUquadric *p = gluNewQuadric();
+            gluQuadricDrawStyle(p,GLU_LINE);
+            glRotatef(90, 1, 0, 0);
+            gluCylinder(p,5,5,h,100,100);
+        glPopMatrix();
+        h += 0.35;
+        if(h >= 65) h = 65;
+
+        glPushMatrix();
+            glColor3f(0,0,0.4);
+            glTranslatef(0,70,0);
+            glRotatef(90, 1, 0, 0);
+            glutSolidCube(16);
+        glPopMatrix();
+    }else{
+        h = 0;
+    }
     glFlush();
     glutSwapBuffers();
 }
@@ -127,6 +152,13 @@ const GLfloat high_shininess[] = { 100.0f };
 
 
 }
+void waterThePlants(int key, int x, int y){
+    if(key == GLUT_KEY_DOWN){
+        runWater = true;
+    }else{
+        runWater = false;
+    }
+}
 int main()
 {
     glutInitWindowPosition(0, 0);
@@ -140,6 +172,7 @@ int main()
 
     glRotatef(0,1,0,0);
     glClearColor(1,1,1,1);
+    glutSpecialFunc(waterThePlants);
     texture(); // Lighting and textures
     glutMainLoop();
 }
