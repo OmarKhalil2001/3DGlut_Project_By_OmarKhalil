@@ -3,6 +3,37 @@
 #include <GL/glut.h>
 
 float angle=0.1; //Speed Of Rotation
+void grass(float x, float y, float z,  float r, float g, float b, int width, float len, float len2, float len3){
+    glLineWidth(width);
+
+    glBegin(GL_LINES);
+        glColor3d(r, g, b);
+        glVertex3d( x,  y, z);
+        glVertex3d( x + len/2.0,  y + len, z);
+    glEnd();
+
+    x += len/2.0;
+    y += len;
+    len = len2;
+    len = len2;
+
+    glBegin(GL_LINES);
+        glColor3d(r, g, b);
+        glVertex3d( x,  y, z);
+        glVertex3d( x - len/2.0,  y + len, z);
+    glEnd();
+
+    x -= len/2.0;
+    y += len;
+    len = len3;
+    len = len3;
+
+    glBegin(GL_LINES);
+        glColor3d(r, g, b);
+        glVertex3d( x,  y-0.5, z);
+        glVertex3d( x + len/2,  y + len/2, z);
+    glEnd();
+}
 void display()
 {
     //The sky is blue with a hint of red
@@ -37,11 +68,18 @@ void display()
     //the teapot is cooler tho
     glPushMatrix();
         glColor3f(0.1,0.1,0.1);
-        glTranslatef(-100, 100, 0);
-        glRotatef(-45, 0, 0, 1);
+        glTranslatef(-50, 120, 0);
+        glRotatef(-80, 0, 0, 1);
         glutSolidTeapot(50);
     glPopMatrix();
 
+    //some nonsense
+    glPushMatrix();
+        grass(0, -10, 0, 0, 0.8, 0, 15, 15, 20, 15);
+        grass(-10, -10, 0, 0, 0.9, 0, 12, 12, 18, 14);
+        grass(10, -10, 0, 0.1, 0.6, 0, 17, 8, 10, 7.5);
+        grass(20, -10, 0, 0.2, 0, 0, 12, 12, 18, 14);
+        grass(-14, -10, 0, 0.3, 0.75, 0, 17, 8, 10, 7.5);
     glFlush();
     glutSwapBuffers();
 }
