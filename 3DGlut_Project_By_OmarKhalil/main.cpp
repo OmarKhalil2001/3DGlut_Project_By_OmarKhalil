@@ -40,6 +40,7 @@ void display()
     glClearColor(0.1,0, 0.6,0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     angle++;
+
     //The Sun is up
     glPushMatrix();
         glColor3f(1,0.9,0);
@@ -73,7 +74,7 @@ void display()
         glutSolidTeapot(50);
     glPopMatrix();
 
-    //some nonsense
+    //some grass
     glPushMatrix();
         grass(0, -10, 0, 0, 0.8, 0, 15, 15, 20, 15);
         grass(-10, -10, 0, 0, 0.9, 0, 12, 12, 18, 14);
