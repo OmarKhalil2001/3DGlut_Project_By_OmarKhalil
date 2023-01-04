@@ -5,18 +5,43 @@
 float angle=0.1; //Speed Of Rotation
 void display()
 {
-    glClearColor(1,1,1,0);
+    //The sky is blue with a hint of red
+    glClearColor(0.1,0, 0.6,0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glColor3f(0,0.5,1);
-    glLineWidth(1.5);
-    glMatrixMode(GL_MODELVIEW);
-
-    glColor3f(0,0.5,1);
+    angle++;
+    //The Sun is up
     glPushMatrix();
-    glRotatef(-90, 1, 0, 0);
-    glutSolidCone(20, 20,20,20);
+        glColor3f(1,0.9,0);
+        glTranslatef(90, 80, -60);
+        glRotatef(angle, 0, 1, 0);
+        glutSolidSphere(15, 8, 20);
     glPopMatrix();
+
+    //The Land is Green
+    glPushMatrix();
+        glColor3f(0,0.7,0);
+        glTranslatef(0, -180, 0);
+        glutSolidCube(200);
+    glPopMatrix();
+
+    //The pot is awesome
+    for(int i = 1; i <= 20; i++){
+        glPushMatrix();
+            glColor3f(0.4,0,0);
+            glTranslatef(0, -i*5, 0);
+            glRotatef(90, 1, 0, 0);
+            glutSolidTorus(3,40-i, 60,60);
+        glPopMatrix();
+    }
+
+    //the teapot is cooler tho
+    glPushMatrix();
+        glColor3f(0.1,0.1,0.1);
+        glTranslatef(-100, 100, 0);
+        glRotatef(-45, 0, 0, 1);
+        glutSolidTeapot(50);
+    glPopMatrix();
+
     glFlush();
     glutSwapBuffers();
 }
@@ -58,15 +83,15 @@ const GLfloat high_shininess[] = { 100.0f };
 int main()
 {
     glutInitWindowPosition(0, 0);
-    glutInitWindowSize(800, 800);
+    glutInitWindowSize(600, 600);
     glutInitDisplayMode(GLUT_RGB | GL_DOUBLE | GLUT_DEPTH);
     glutCreateWindow("Omar H. Khalil || 20101110");
 
     glutDisplayFunc(display);
     glutIdleFunc(display); //the same function of glutPostRedisplay();
-    glOrtho(-44.0,44,-44.0,44,-44.0,44); //not gluOrtho
+    glOrtho(-100.0,100,-100.0,100,-100.0,100); //not gluOrtho
 
-    glRotatef(1,0,0,0);
+    glRotatef(0,1,0,0);
     glClearColor(1,1,1,1);
     texture(); // Lighting and textures
     glutMainLoop();
