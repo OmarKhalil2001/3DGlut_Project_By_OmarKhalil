@@ -1,10 +1,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <windows.h>
-#include <mmsystem.h>
+
 using namespace std;
-float angle=0.1, h = 0, f1 = 0, f2 = 0;
+float angle=0.1, h = 0, f1 = 0, f2 = 0, c = 0.1;
 bool runWater = false;
 
 void fly(){
@@ -145,10 +144,10 @@ void display()
     }else{
         h = 0;
     }
-
+    //flies
     glPushMatrix();
         glColor3f(1,.9,0);
-        glTranslatef(0, 40, 0);
+        glTranslatef(f2, 40, 0);
         glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
         fly();
@@ -156,7 +155,7 @@ void display()
 
     glPushMatrix();
         glColor3f(1,.9,0);
-        glTranslatef(-30, 20, 0);
+        glTranslatef(-30+f2, 20, 0);
         glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
         fly();
@@ -164,12 +163,14 @@ void display()
 
     glPushMatrix();
         glColor3f(1,.9,0);
-        glTranslatef(20, 40, 0);
+        glTranslatef(20+f2, 40, 0);
         glRotatef(f1, 0,1,1);
         glScalef(2, 2, 2);
         fly();
     glPopMatrix();
-
+    f2 += c;
+    if(f2 > 5) c = -c;
+    else if(f2 < -5) c = -c;
     glFlush();
     glutSwapBuffers();
 }
